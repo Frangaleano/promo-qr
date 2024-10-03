@@ -24,7 +24,7 @@ const deviceSchema = new mongoose.Schema({
 const Device = mongoose.model('Device', deviceSchema, 'qrtracking');
 
 // Endpoint para verificar y registrar dispositivos
-app.post('/check-device', async (req, res) => {
+app.post('/api/check-device', async (req, res) => {
     const { deviceID } = req.body;
     try {
         let device = await Device.findOne({ deviceID });
@@ -42,7 +42,7 @@ app.post('/check-device', async (req, res) => {
 });
 
 // Endpoint para marcar un dispositivo como escaneado
-app.post('/mark-scanned', async (req, res) => {
+app.post('/api/mark-scanned', async (req, res) => {
     const { deviceID } = req.body;
 
     try {
