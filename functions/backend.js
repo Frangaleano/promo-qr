@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Conexión a MongoDB sin las opciones obsoletas
+// Conexión a MongoDB sin opciones obsoletas
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Conectado a MongoDB'))
     .catch(err => console.error('No se pudo conectar a MongoDB:', err));
@@ -21,7 +21,7 @@ const deviceSchema = new mongoose.Schema({
 
 const Device = mongoose.model('Device', deviceSchema, 'qrtracking');
 
-// Ruta para verificar el dispositivo
+// Nota: Aquí ajustamos las rutas para que sean relativas
 app.post('/api/check-device', async (req, res) => {
     const { deviceID } = req.body;
     try {
@@ -40,7 +40,6 @@ app.post('/api/check-device', async (req, res) => {
     }
 });
 
-// Ruta para marcar el dispositivo como escaneado
 app.post('/api/mark-scanned', async (req, res) => {
     const { deviceID } = req.body;
 
@@ -64,4 +63,5 @@ app.post('/api/mark-scanned', async (req, res) => {
     }
 });
 
+// Aquí está el módulo que permite manejar el serverless
 module.exports.handler = serverless(app);

@@ -13,9 +13,11 @@
             });
         }
 
+
         document.addEventListener('DOMContentLoaded', () => {
-            const endpointCheckDevice = 'https://promo-qr.netlify.app/.netlify/functions/backend/api/check-device';
-            const endpointMarkScanned = 'https://promo-qr.netlify.app/.netlify/functions/backend/api/mark-scanned';
+            // Ajustar las rutas, ya que hemos eliminado el prefijo /api/ en backend.js
+            const endpointCheckDevice = '/api/check-device';
+            const endpointMarkScanned = '/api/mark-scanned';
 
             let deviceID = localStorage.getItem('deviceID');
 
@@ -78,6 +80,7 @@
             }
         });
     </script>
+
 </head>
 
 <body>
