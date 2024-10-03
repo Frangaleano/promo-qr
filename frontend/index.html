@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,72 +14,74 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-    const endpointCheckDevice = '/.netlify/functions/backend/api/check-device'; 
-    const endpointMarkScanned = '/.netlify/functions/backend/api/mark-scanned'; 
+            const endpointCheckDevice = 'https://promo-qr.netlify.app/.netlify/functions/backend/api/check-device';
+            const endpointMarkScanned = 'https://promo-qr.netlify.app/.netlify/functions/backend/api/mark-scanned';
 
-    let deviceID = localStorage.getItem('deviceID');
+            let deviceID = localStorage.getItem('deviceID');
 
-    if (!deviceID) {
-        deviceID = generateUniqueID();
-        localStorage.setItem('deviceID', deviceID);
-        console.log(`Nuevo dispositivo generado: ${deviceID}`);
+            if (!deviceID) {
+                deviceID = generateUniqueID();
+                localStorage.setItem('deviceID', deviceID);
+                console.log(`Nuevo dispositivo generado: ${deviceID}`);
 
-        // Registrar dispositivo por primera vez
-        fetch(endpointCheckDevice, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ deviceID }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Respuesta al registrar dispositivo:', data);
-            if (data.firstTime) {
-                window.location.href = 'https://promo-qr.netlify.app/nueva'; 
-            } else {
-                window.location.href = 'https://promo-qr.netlify.app/ya-escaneado'; 
-            }
-        })
-        .catch(error => {
-            console.error('Error al registrar el dispositivo:', error);
-        });
-    } else {
-        console.log(`Dispositivo existente: ${deviceID}`);
-
-        // Verificar si el dispositivo ya escaneó
-        fetch(endpointCheckDevice, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ deviceID }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Respuesta al verificar dispositivo:', data);
-            if (data.firstTime) {
-                // Si no ha sido escaneado, márcalo como escaneado
-                fetch(endpointMarkScanned, {
+                // Registrar dispositivo por primera vez
+                fetch(endpointCheckDevice, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ deviceID }),
                 })
-                .then(() => {
-                    window.location.href = 'https://promo-qr.netlify.app/nueva'; 
-                })
-                .catch(error => {
-                    console.error('Error al marcar como escaneado:', error);
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Respuesta al registrar dispositivo:', data);
+                        if (data.firstTime) {
+                            window.location.href = 'https://promo-qr.netlify.app/nueva';
+                        } else {
+                            window.location.href = 'https://promo-qr.netlify.app/ya-escaneado';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al registrar el dispositivo:', error);
+                    });
             } else {
-                // Si ya fue escaneado, redirige a la URL correspondiente
-                window.location.href = 'https://promo-qr.netlify.app/ya-escaneado'; 
+                console.log(`Dispositivo existente: ${deviceID}`);
+
+                // Verificar si el dispositivo ya escaneó
+                fetch(endpointCheckDevice, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ deviceID }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Respuesta al verificar dispositivo:', data);
+                        if (data.firstTime) {
+                            // Si no ha sido escaneado, márcalo como escaneado
+                            fetch(endpointMarkScanned, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ deviceID }),
+                            })
+                                .then(() => {
+                                    window.location.href = 'https://promo-qr.netlify.app/nueva';
+                                })
+                                .catch(error => {
+                                    console.error('Error al marcar como escaneado:', error);
+                                });
+                        } else {
+                            // Si ya fue escaneado, redirige a la URL correspondiente
+                            window.location.href = 'https://promo-qr.netlify.app/ya-escaneado';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al verificar el dispositivo:', error);
+                    });
             }
-        })
-        .catch(error => {
-            console.error('Error al verificar el dispositivo:', error);
         });
-    }
-});
     </script>
 </head>
+
 <body>
     <h1>Escaneaste el código QR</h1>
 </body>
+
 </html>
