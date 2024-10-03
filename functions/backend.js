@@ -2,20 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const serverless = require('serverless-http'); // Importar serverless-http
+const serverless = require('serverless-http');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Conexión a MongoDB utilizando una variable de entorno
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+// Conexión a MongoDB sin las opciones obsoletas
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Conectado a MongoDB'))
     .catch(err => console.error('No se pudo conectar a MongoDB:', err));
 
-// Esquema y modelo para los dispositivos
 const deviceSchema = new mongoose.Schema({
     deviceID: { type: String, unique: true },
     scanned: { type: Boolean, default: false },
@@ -23,7 +21,6 @@ const deviceSchema = new mongoose.Schema({
 
 const Device = mongoose.model('Device', deviceSchema, 'qrtracking');
 
-// Endpoint para verificar y registrar dispositivos
 app.post('/api/check-device', async (req, res) => {
     const { deviceID } = req.body;
     try {
@@ -37,12 +34,11 @@ app.post('/api/check-device', async (req, res) => {
 
         res.json({ firstTime: device.scanned ? false : true });
     } catch (error) {
-        console.error('Error en check-device:', error); // Agregado para debug
+        console.error('Error en check-device:', error);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
 
-// Endpoint para marcar un dispositivo como escaneado
 app.post('/api/mark-scanned', async (req, res) => {
     const { deviceID } = req.body;
 
@@ -61,10 +57,9 @@ app.post('/api/mark-scanned', async (req, res) => {
         await device.save();
         res.json({ success: true });
     } catch (error) {
-        console.error('Error en mark-scanned:', error); // Agregado para debug
+        console.error('Error en mark-scanned:', error);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
 
-// Exportar la aplicación como una función serverless
 module.exports.handler = serverless(app);
