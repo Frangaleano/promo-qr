@@ -13,7 +13,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const endpoint = 'http://localhost:3000/check-device';
+            // Ajustar las URLs de las funciones según la estructura de tu proyecto
+            const endpointCheckDevice = 'https://promo-qr.netlify.app/.netlify/functions/backend'; // URL para verificar el dispositivo
+            const endpointMarkScanned = 'https://promo-qr.netlify.app/.netlify/functions/backend'; // URL para marcar como escaneado
             let deviceID = localStorage.getItem('deviceID');
 
             if (!deviceID) {
@@ -22,7 +24,7 @@
                 console.log(`Nuevo dispositivo generado: ${deviceID}`);
 
                 // Registrar dispositivo por primera vez
-                fetch(endpoint, {
+                fetch(endpointCheckDevice, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ deviceID }),
@@ -31,9 +33,9 @@
                 .then(data => {
                     console.log('Respuesta al registrar dispositivo:', data);
                     if (data.firstTime) {
-                        window.location.href = 'https://tusitio.com/nueva'; // Cambia esta URL
+                        window.location.href = 'https://promo-qr.netlify.app/nueva'; // URL para usuarios nuevos
                     } else {
-                        window.location.href = 'https://tusitio.com/ya-escaneado'; // Cambia esta URL
+                        window.location.href = 'https://promo-qr.netlify.app/ya-escaneado'; // URL para usuarios que ya escanearon
                     }
                 })
                 .catch(error => {
@@ -43,7 +45,7 @@
                 console.log(`Dispositivo existente: ${deviceID}`);
 
                 // Verificar si el dispositivo ya escaneó
-                fetch(endpoint, {
+                fetch(endpointCheckDevice, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ deviceID }),
@@ -53,16 +55,16 @@
                     console.log('Respuesta al verificar dispositivo:', data);
                     if (!data.firstTime) {
                         // Si ya fue escaneado, redirige a la URL correspondiente
-                        window.location.href = 'https://tusitio.com/ya-escaneado'; // Cambia esta URL
+                        window.location.href = 'https://promo-qr.netlify.app/ya-escaneado'; // URL para usuarios que ya escanearon
                     } else {
                         // Si no ha sido escaneado, márcalo como escaneado
-                        fetch('http://localhost:3000/mark-scanned', {
+                        fetch(endpointMarkScanned, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ deviceID }),
                         })
                         .then(() => {
-                            window.location.href = 'https://tusitio.com/nueva'; // Cambia esta URL
+                            window.location.href = 'https://promo-qr.netlify.app/nueva'; // URL para usuarios nuevos
                         })
                         .catch(error => {
                             console.error('Error al marcar como escaneado:', error);

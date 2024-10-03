@@ -2,10 +2,10 @@
   "name": "codigo-qr",
   "version": "1.0.0",
   "description": "Proyecto de código QR con backend en Heroku y funcionalidades de escaneo y registro de dispositivos.",
-  "main": "server.js",
+  "main": "backend.js", 
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node backend.js", 
+    "dev": "nodemon backend.js",  
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["QR", "codigo", "serverless", "backend"],
