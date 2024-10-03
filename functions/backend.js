@@ -10,8 +10,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Conexión a MongoDB
-mongoose.connect('mongodb+srv://frangvleano:jazmin170115.@cluster0.8kfl4.mongodb.net/qrtracking?retryWrites=true&w=majority&appName=Cluster0')
+// Conexión a MongoDB utilizando una variable de entorno
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Conectado a MongoDB'))
     .catch(err => console.error('No se pudo conectar a MongoDB:', err));
 
