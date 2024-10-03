@@ -21,6 +21,7 @@ const deviceSchema = new mongoose.Schema({
 
 const Device = mongoose.model('Device', deviceSchema, 'qrtracking');
 
+// Ruta para verificar el dispositivo
 app.post('/api/check-device', async (req, res) => {
     const { deviceID } = req.body;
     try {
@@ -39,6 +40,7 @@ app.post('/api/check-device', async (req, res) => {
     }
 });
 
+// Ruta para marcar el dispositivo como escaneado
 app.post('/api/mark-scanned', async (req, res) => {
     const { deviceID } = req.body;
 
