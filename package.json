@@ -1,5 +1,5 @@
 {
-  "name": "codigo-qr",
+  "name": "promo-qr",
   "version": "1.0.0",
   "description": "Proyecto de código QR con backend en Heroku y funcionalidades de escaneo y registro de dispositivos.",
   "main": "backend.js", 
