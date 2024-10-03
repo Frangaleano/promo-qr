@@ -14,8 +14,8 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             // Ajustar las URLs de las funciones según la estructura de tu proyecto
-            const endpointCheckDevice = 'https://promo-qr.netlify.app/.netlify/functions/backend'; // URL para verificar el dispositivo
-            const endpointMarkScanned = 'https://promo-qr.netlify.app/.netlify/functions/backend'; // URL para marcar como escaneado
+            const endpointCheckDevice = 'https://promo-qr.netlify.app/.netlify/functions/backend/api/check-device'; // URL para verificar el dispositivo
+            const endpointMarkScanned = 'https://promo-qr.netlify.app/.netlify/functions/backend/api/mark-scanned'; // URL para marcar como escaneado
             let deviceID = localStorage.getItem('deviceID');
 
             if (!deviceID) {
