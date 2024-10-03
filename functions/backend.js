@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Conexión a MongoDB utilizando una variable de entorno
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Conectado a MongoDB'))
     .catch(err => console.error('No se pudo conectar a MongoDB:', err));
 
@@ -35,8 +35,9 @@ app.post('/api/check-device', async (req, res) => {
             return res.json({ firstTime: true });
         }
 
-        res.json({ firstTime: false });
+        res.json({ firstTime: device.scanned ? false : true });
     } catch (error) {
+        console.error('Error en check-device:', error); // Agregado para debug
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
@@ -60,6 +61,7 @@ app.post('/api/mark-scanned', async (req, res) => {
         await device.save();
         res.json({ success: true });
     } catch (error) {
+        console.error('Error en mark-scanned:', error); // Agregado para debug
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
