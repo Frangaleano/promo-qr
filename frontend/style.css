@@ -9,6 +9,7 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 * {
@@ -16,6 +17,20 @@ body {
 }
 
 @media (min-width: 250px) {
+
+    header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    header img {
+        margin-left: 10px;
+        width: 25px;
+        height: 25px;
+    }
+
     .div-spinner {
         display: flex;
         flex-direction: column;
@@ -25,6 +40,30 @@ body {
 
     .div-spinner h1 {
         font-size: 26px;
+        margin-top: 5px;
     }
+
+    .div-spinner a {
+        margin-top: 20px;
+        text-decoration: none;
+        color: white;
+        border: 2px solid #FCB502;
+        border-radius: 30px;
+        padding: 16px;
+        font-size: 22px;
+        animation: shadowAnimationIn 1.5s infinite;
+    }
+
+    @keyframes shadowAnimationIn {
+
+        0%,
+        100% {
+            box-shadow: inset 0px 0px 31px 0px rgba(255, 199, 0, 0.75);
+        }
+    
+        50% {
+          box-shadow: none;
+        }
+      }
 
 }
