@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+
+body {
+    margin: 0;
+    font-family: "Euclid Circular A";
+    background: linear-gradient(180deg, rgba(140, 34, 195, 1) 0%, rgba(68, 9, 126, 1) 53%, rgba(28, 1, 59, 1) 100%);
+    font-family: 'Kdam Thmor Pro', sans-serif;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (min-width: 250px) {
+    .div-spinner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .div-spinner h1 {
+        font-size: 26px;
+    }
+
+}
