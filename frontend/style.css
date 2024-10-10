@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
 
 body {
-    margin: 0;
-    font-family: "Euclid Circular A";
-    background: linear-gradient(180deg, rgba(140, 34, 195, 1) 0%, rgba(68, 9, 126, 1) 53%, rgba(28, 1, 59, 1) 100%);
+    margin: 0px 20px;
+    background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)), url(./img/fondo-mcking.jpeg);
+    background-size: cover;
     font-family: 'Kdam Thmor Pro', sans-serif;
     color: white;
     height: 100vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 * {
@@ -18,11 +20,24 @@ body {
 
 @media (min-width: 350px) {
 
+    header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
     .logo {
         width: 150px;
         height: 150px;
         border-radius: 50%;
         border: solid 2px rgba(255, 199, 0, 0.75);
+        margin-bottom: 50px;
+    }
+
+    .mundo {
+        width: 20px;
+        margin-left: 10px;
     }
 
     .div-spinner {
@@ -30,6 +45,7 @@ body {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        margin-bottom: 70px;
     }
 
     .div-spinner h1 {
