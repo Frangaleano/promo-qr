@@ -2,7 +2,7 @@
 
 body {
     margin: 0px 20px;
-    background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)), url(./img/fondo-mcking.jpeg);
+    background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)), url(./img/fondo-mcking.webp);
     background-size: cover;
     font-family: 'Kdam Thmor Pro', sans-serif;
     color: white;
